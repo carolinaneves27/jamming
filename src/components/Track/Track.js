@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 class Track extends Component{
     renderAction() {
-        if(isRemovval.ok){
-            
+        if(isRemoval.ok){
+
         }
     }
     render() {
