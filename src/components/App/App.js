@@ -16,18 +16,8 @@ class App extends Component {
     this.search = this.search.bind(this);
 
     this.state= {
-      searchResults: [
-        {name: 'Hello', artist: 'Adelde', album: 'Blah', id: 1},
-        {name: 'Track2 name', artist: 'Track2 artist', album: 'Track2 album', id: 2},
-        {name: 'Track3 name', artist: 'Track3 artist', album: 'Track3 album', id: 3}
-      ],
-
-      playlistTracks: [
-       {name: 'Hello', artist: 'Adelde', album: 'Blah', id: 4},
-        {name: 'PlaylistTrack2 name', artist: 'PlaylistTrack2 artist', album: 'PlaylistTrack2 album', id: 5},
-        {name: 'PlaylistTrack3 name', artist: 'PlaylistTrack3 artist', album: 'PlaylistTrack3 album', id: 6}
-      ],
-
+      searchResults: [ ],
+      playlistTracks: [],
       playlistName: 'My Playlist',
     }
   };
@@ -52,14 +42,20 @@ class App extends Component {
     });
   }
 
-  savePlaylist(){
-    const trackURIs = this.state.playlistTracks.map(playlistTrack => playlistTrack.uri);
-  }
+savePlaylist() {
+  const playlistTracks = this.state.playlistTracks;
+  const trackURIs = playlistTracks.map(currTrack => currTrack.uri);
+  Spotify.savePlaylist(this.state.playlistName, trackURIs)
+  .then( () => {
+    this.setState({ playlistName: 'My Playlist', playlistTracks: []});
+  })
+}
 
-  search(term) {
-    Spotify.search(term).then(searchResults => this.setState({
-      searchResults: searchResults
-    }));
+  search(term){
+    Spotify.search(term).then(tracks => {
+      console.log(tracks);
+      this.setState({ searchResults: tracks});
+    });
   }
 
   render() {

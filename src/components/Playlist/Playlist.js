@@ -11,13 +11,13 @@ class Playlist extends Component {
 
     handleNameChange(event) {
         const newPlaylistName = event.target.value;
-        this.props.onNameChange(event.target.value);
+        this.props.onNameChange(newPlaylistName);
       }
 
     render() {
         return(
             <div className="Playlist">
-                <input OnChange ={this.handleNameChange} defaultValue = {'New Playlist'}/>
+                <input onChange ={this.handleNameChange} defaultValue = {'New Playlist'}/>
                 <TrackList tracks = {this.props.playlistTracks} onRemove = {this.props.onRemove} onChange = {this.handleNameChange} />
                 <a className="Playlist-save" onClick = {this.props.onSave}>SAVE</a>
             </div>
